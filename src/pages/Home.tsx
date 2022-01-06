@@ -5,14 +5,20 @@ import googleIconImg from '../assets/google-icon.svg';
 
 import '../styles/auth.scss'
 import { Button } from '../components/Button';
+import { firebase, auth, database } from '../services/firebase';
 
 export function Home() {
 
   const navigate = useNavigate();
 
   function handleCreateRoom(){
-    navigate("/rooms/new");
-  }
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).then(result => {
+      console.log(result);
+      navigate("/rooms/new");
+    });
+
+  } 
 
   return (
     <div id="page-auth">
